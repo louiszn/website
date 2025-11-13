@@ -1,9 +1,11 @@
 {
 	"name": "website",
-	"version": "1.0.0",
-	"description": "",
+	"private": true,
 	"main": "index.js",
-	"scripts": {},
+	"scripts": {
+		"format": "pnpm exec prettier . --write",
+		"lint": "pnpm exec eslint ."
+	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",

@@ -43,7 +43,7 @@ export default defineConfig(
 				svelteConfig,
 				parser: tseslint.parser,
 			},
-		}
+		},
 	},
 	{
 		rules: {
