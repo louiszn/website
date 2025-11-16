@@ -1,3 +1,51 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
+
+@theme inline {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+
+	--color-accent2: var(--accent2);
+	--color-accent2-foreground: var(--accent2-foreground);
+
+	--color-accent-gradient: var(--acent-gradient);
+
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+
+	--color-card: var(--card);
+	--color-outline: var(--outline);
+}
+
+:root {
+	--background: #0d0d0d;
+	--foreground: #e6f0ff;
+
+	--accent: #8feaff;
+	--accent-foreground: #e8faff;
+
+	--accent2: #ff9bd3;
+	--accent2-foreground: #fff3fb;
+
+	--muted: #a5a5a5;
+	--muted-foreground: #858585;
+	--card: #1f1f1f;
+	--outline: #4a4a4a;
+}
+
+body {
+	background-color: var(--background);
+	color: var(--foreground);
+}
+
+* {
+	scroll-behavior: smooth;
+}
+
+button {
+	cursor: pointer;
+}
