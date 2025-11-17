@@ -83,7 +83,7 @@
 
 	{#if showArrow}
 		<button
-			class="absolute bottom-5 p-2 rounded-full outline outline-muted text-muted animate-bounce"
+			class="absolute bottom-25 md:bottom-5 p-2 rounded-full outline outline-muted text-muted animate-bounce"
 			in:fade={{ duration: 100 }}
 			out:fade={{ duration: 100 }}
 			onclick={scrollToContent}
