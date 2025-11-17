@@ -9,7 +9,7 @@
 	const links = [
 		{
 			icon: "material-symbols:mail",
-			url: "mailto:louiszn269@gmail.com"
+			url: "mailto:louiszn269@gmail.com",
 		},
 		{
 			icon: "mdi:github",
@@ -54,21 +54,19 @@
 </script>
 
 <div class="relative flex flex-col w-full h-screen items-center justify-center gap-5">
-	<div class="flex items-center gap-20">
-		<div class="relative w-60 h-60 rounded-full overflow-hidden p-1 gradient-border">
-			<img src={avatar} alt="" class="w-full h-full z-10 rounded-full" />
-		</div>
+	<div class="flex items-center gap-6 md:gap-20">
+		<img src={avatar} alt="" class="md:w-60 md:h-60 w-30 h-30 z-10 rounded-full" />
 
-		<div class="flex flex-col gap-5">
-			<div class="flex flex-col gap-2">
-				<span class="flex flex-col text-6xl font-bold"
+		<div class="flex flex-col gap-2 md:gap-5">
+			<div class="flex flex-col gap-1 md:gap-2">
+				<span class="flex flex-col text-2xl md:text-6xl font-bold"
 					>Hewwo, I'm <span class="text-accent">Louis Johnson</span></span
 				>
-				<span class="text-3xl font-bold text-accent2">A cute oreo kitty</span>
+				<span class="text-md md:text-3xl font-bold text-accent2">A cute oreo kitty</span>
 			</div>
 
 			<!-- Links -->
-			<div class="flex items-center gap-5 h-10">
+			<div class="flex items-center gap-3 md:gap-5 h-10">
 				{#each links as link (link.url)}
 					<a
 						href={link.url}
@@ -76,7 +74,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<Icon icon={link.icon} class="w-8 h-8" />
+						<Icon icon={link.icon} class="w-6 h-6 md:w-8 md:h-8" />
 					</a>
 				{/each}
 			</div>
@@ -99,6 +97,10 @@
 	<span class="text-5xl font-bold">About me</span>
 </div>
 
-<div id="about-me" class="flex w-full h-screen items-center justify-center">
-	<span class="text-5xl font-bold">About me</span>
-</div>
+<div id="about-me" class="flex w-full h-screen items-center justify-center"></div>
+
+<div id="about-me" class="flex w-full h-screen items-center justify-center"></div>
+
+<div id="about-me" class="flex w-full h-screen items-center justify-center"></div>
+
+<div id="about-me" class="flex w-full h-screen items-center justify-center"></div>
