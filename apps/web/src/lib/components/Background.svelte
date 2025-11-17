@@ -19,8 +19,6 @@
 		const baseAmount = 200;
 		const baseArea = 1920 * 1080;
 
-		const width = window.innerWidth;
-		const height = window.innerHeight;
 		const area = width * height;
 
 		let amount = Math.round((area / baseArea) * baseAmount);
@@ -34,7 +32,6 @@
 		const amount = getParticleAmount();
 
 		if (particles.length <= amount) {
-			particles.length = 0;
 			particles = Array.from({ length: amount }, () => createParticle(width, height));
 		}
 	}
