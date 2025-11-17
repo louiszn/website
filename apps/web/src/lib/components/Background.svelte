@@ -2,7 +2,7 @@
 	import { random, wrap } from "$lib/utils/number";
 	import { onMount } from "svelte";
 
-	const PARTICLE_AMOUNT = 120;
+	const PARTICLE_AMOUNT = 200;
 	const PARTICLE_COLORS = [
 		"#ffffff",
 		"#ffd1dc",
@@ -12,6 +12,7 @@
 		"#a8ffb0",
 		"#ffc2a8",
 	] as const;
+	const FADE_IN_DURATION = 500;
 
 	interface Particle {
 		x: number;
@@ -22,7 +23,6 @@
 		blinkSpeed: number;
 		blinkPhase: number;
 		color: string;
-		currentOpacity: number;
 	}
 
 	let canvas: HTMLCanvasElement;
@@ -30,6 +30,8 @@
 
 	let lastScroll = 0;
 	let scrollDelta = 0;
+
+	let animationStartTime = 0;
 
 	function createParticle(): Particle {
 		const { innerWidth, innerHeight } = window;
@@ -46,7 +48,6 @@
 			velocity: getParticleVelocity(size),
 			blinkSpeed: random(0.0005, 0.001),
 			blinkPhase: random(0, Math.PI * 2),
-			currentOpacity: 0,
 		};
 	}
 
@@ -67,8 +68,8 @@
 		// Clean old particles
 		context.clearRect(0, 0, canvas.width, canvas.height);
 
-		for (const particle of particles) {
-			drawParticle(context, particle);
+		for (const [i, particle] of particles.entries()) {
+			drawParticle(context, particle, i);
 		}
 
 		// Reset scroll delta to stop movement
@@ -78,30 +79,26 @@
 		requestAnimationFrame(draw);
 	}
 
-	function drawParticle(context: CanvasRenderingContext2D, particle: Particle) {
-		const { velocity, opacity, size, color } = particle;
-		const { innerHeight, innerWidth } = window;
+	function drawParticle(context: CanvasRenderingContext2D, particle: Particle, index: number) {
+		const { velocity, size, color, blinkSpeed, blinkPhase } = particle;
+		const { width, height } = canvas;
 
-		// Fade effect
-		const fadeSpeed = velocity * 0.05;
-		particle.currentOpacity = Math.min(particle.currentOpacity + fadeSpeed, opacity);
+		const fadeInProgress = getFadeInProgress(index);
+		const blinkState = getBlinkState(blinkSpeed, blinkPhase);
 
-		// Blink effect
-		const blink = Math.sin(Date.now() * particle.blinkSpeed + particle.blinkPhase) * 0.5 + 0.5;
-		const drawOpacity = particle.currentOpacity * blink;
+		const drawOpacity = particle.opacity * blinkState * fadeInProgress;
 
-		// Calculate next position based on the scroll delta
+		// Handle particle movement
 		if (scrollDelta !== 0) {
 			const move = velocity * scrollDelta * 0.1;
 			particle.x -= move;
 			particle.y -= move;
 		}
 
-		const margin = 10;
-
 		// Wrap the particle to screen to create infinity effect
-		particle.x = wrap(particle.x, -margin, innerWidth + margin);
-		particle.y = wrap(particle.y, -margin, innerHeight + margin);
+		const margin = 10;
+		particle.x = wrap(particle.x, -margin, width + margin);
+		particle.y = wrap(particle.y, -margin, height + margin);
 
 		// Draw circle particle
 		context.globalAlpha = drawOpacity;
@@ -109,6 +106,22 @@
 		context.beginPath();
 		context.arc(particle.x, particle.y, size / 2, 0, Math.PI * 2);
 		context.fill();
+	}
+
+	function getFadeInProgress(index: number): number {
+		const appearanceThreshold = (index / PARTICLE_AMOUNT) * FADE_IN_DURATION;
+		const elapsed = Date.now() - animationStartTime;
+
+		if (elapsed < appearanceThreshold) {
+			return 0;
+		}
+
+		const progress = Math.min((elapsed - appearanceThreshold) / (FADE_IN_DURATION * 0.5), 1);
+		return 1 - Math.pow(1 - progress, 2);
+	}
+
+	function getBlinkState(speed: number, phase: number) {
+		return Math.sin(Date.now() * speed + phase) * 0.5 + 0.5;
 	}
 
 	onMount(() => {
@@ -126,6 +139,7 @@
 			lastScroll = scrollY;
 		});
 
+		animationStartTime = Date.now();
 		requestAnimationFrame(draw);
 	});
 </script>
