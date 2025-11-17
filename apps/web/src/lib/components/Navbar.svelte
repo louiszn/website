@@ -20,7 +20,7 @@
 
 <nav
 	id="navbar"
-	class="flex bg-card/80 outline-outline outline-1 backdrop-blur-2xl fixed top-0 w-full py-3 px-20 justify-between items-center z-10"
+	class="flex bg-card/80 outline-outline outline-1 backdrop-blur-2xl fixed top-0 w-full py-3 px-20 justify-between items-center z-99"
 >
 	<a href="/" class="font-bold text-xl">Louiszn</a>
 

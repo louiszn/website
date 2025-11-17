@@ -18,7 +18,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<Background />
+<Background  />
 
 <Navbar />
 

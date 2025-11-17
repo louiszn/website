@@ -3,13 +3,13 @@ export function random(min: number, max: number) {
 }
 
 export function wrap(value: number, min: number, max: number) {
-	if (value > max) {
-		return min;
+	const range = max - min;
+
+	let result = (value - min) % range;
+
+	if (result < 0) {
+		result += range;
 	}
 
-	if (value < min) {
-		return max;
-	}
-	
-	return value;
+	return result + min;
 }
