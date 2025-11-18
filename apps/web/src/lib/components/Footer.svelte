@@ -6,10 +6,10 @@
 
 <footer
 	id="footer"
-	class="flex bg-card/80 outline-card-outline outline-1 backdrop-blur-2xl w-full py-8 px-20 justify-center items-center z-99"
-	style="view-transition-name: header;"
+	class="flex bg-card/80 outline-card-outline outline-1 backdrop-blur-2xl w-full py-8 px-2 md:px-20 justify-center items-center z-99"
+	style="view-transition-name: footer;"
 >
-	<div class="flex flex-col text-center">
+	<div class="flex flex-col text-center text-xs md:text-lg">
 		<span>
 			&copy; {year}
 			{author}. All rights reserved.
