@@ -29,11 +29,11 @@
 	<title>Louiszn</title>
 	<link rel="icon" href={favicon} />
 </svelte:head>
-<Background />
 
 <Navbar />
 
-<div style="view-transition-name: page-content;">
+<Background />
+<div style="">
 	{@render children()}
 </div>
 

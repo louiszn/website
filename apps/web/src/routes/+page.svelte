@@ -124,7 +124,7 @@
 
 	<div class="lg:p-0 p-5 w-full lg:w-fit">
 		<div
-			class="flex flex-col w-full p-4 gap-3 bg-card/50 backdrop-blur-sm outline-1 outline-card-outline rounded-2xl"
+			class="flex flex-col w-full p-4 gap-3 bg-card/40 backdrop-blur-sm outline-1 outline-card-outline rounded-2xl"
 		>
 			<div class="flex w-full justify-between font-mono">
 				<span class="font-bold lg:text-lg text-sm">@louiszn's contributions</span>

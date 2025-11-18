@@ -107,6 +107,6 @@
 
 <canvas
 	bind:this={canvas}
-	class="fixed left-0 top-0 z-[-99] w-full h-screen min-h-screen pointer-events-none"
-	style="view-transition-name: background;"
+	class="fixed left-0 top-0 w-full h-screen pointer-events-none"
+	style="z-index: -10; view-transition-name: background;"
 ></canvas>
