@@ -16,7 +16,7 @@
 	let animationStartTime = 0;
 
 	function getParticleAmount() {
-		const baseAmount = 200;
+		const baseAmount = 250;
 		const baseArea = 1920 * 1080;
 
 		const area = width * height;
@@ -30,10 +30,7 @@
 
 	function initParticles() {
 		const amount = getParticleAmount();
-
-		if (particles.length <= amount) {
-			particles = Array.from({ length: amount }, () => createParticle(width, height));
-		}
+		particles = Array.from({ length: amount }, () => createParticle(width, height));
 	}
 
 	function setupCanvas() {
