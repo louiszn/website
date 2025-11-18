@@ -87,7 +87,7 @@
 	const weekdays = ["S", "M", "T", "W", "T", "F", "S"];
 </script>
 
-<div class="relative flex flex-col w-full h-screen items-center justify-center gap-10 lg:gap-25">
+<div class="relative flex flex-col w-full h-screen items-center justify-center gap-5 lg:gap-25">
 	<div class="flex items-center gap-6 lg:gap-20">
 		<img src={avatar} alt="" class="lg:w-60 lg:h-60 w-30 h-30 z-10 rounded-full" />
 
@@ -115,9 +115,9 @@
 		</div>
 	</div>
 
-	<div class="lg:p-0 p-2 w-full lg:w-fit">
+	<div class="lg:p-0 p-5 w-full lg:w-fit">
 		<div
-			class="flex flex-col w-full p-5 gap-3 bg-card/50 backdrop-blur-sm outline-1 outline-card-outline rounded-2xl"
+			class="flex flex-col w-full p-4 gap-3 bg-card/50 backdrop-blur-sm outline-1 outline-card-outline rounded-2xl"
 		>
 			<div class="flex w-full justify-between font-mono">
 				<span class="font-bold lg:text-lg text-sm">@louiszn's contributions</span>
@@ -163,4 +163,6 @@
 	{/if}
 </div>
 
-<div class="w-full h-screen"></div>
+<div class="flex w-full h-screen items-center" id="about-me">
+	<span>About Me</span>
+</div>
