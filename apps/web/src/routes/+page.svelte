@@ -1,10 +1,20 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
-
 	import Icon from "@iconify/svelte";
+	import type { LayoutProps } from "./$types";
 
 	import avatar from "$lib/assets/avatar.jpeg";
+
+	import type { ContributionCalendar } from "$types/queries/userContributons";
+
+	interface ExtendedLayoutProps {
+		data: {
+			contributionCalendar: ContributionCalendar;
+		};
+	}
+
+	let { data }: LayoutProps & ExtendedLayoutProps = $props();
 
 	const links = [
 		{
@@ -25,7 +35,9 @@
 		},
 	];
 
-	let showArrow = false;
+	let contribGrid: HTMLDivElement;
+
+	let showArrow = $state(false);
 
 	function updateArrow() {
 		showArrow = window.scrollY < window.innerHeight * 0.1;
@@ -41,7 +53,27 @@
 		aboutMe.scrollIntoView({ behavior: "smooth" });
 	}
 
+	const colors = ["#2a2a2a", "#264653", "#2a9d8f", "#8feaff", "#A6D1E6"];
+
+	function getColor(count: number) {
+		if (count === 0) {
+			return colors[0];
+		}
+		if (count <= 2) {
+			return colors[1];
+		}
+		if (count <= 4) {
+			return colors[2];
+		}
+		if (count <= 6) {
+			return colors[3];
+		}
+		return colors[4];
+	}
+
 	onMount(() => {
+		contribGrid.scrollLeft = contribGrid.scrollWidth;
+
 		setTimeout(() => {
 			updateArrow();
 			window.addEventListener("scroll", updateArrow);
@@ -51,9 +83,11 @@
 			window.removeEventListener("scroll", updateArrow);
 		};
 	});
+
+	const weekdays = ["S", "M", "T", "W", "T", "F", "S"];
 </script>
 
-<div class="relative flex flex-col w-full h-screen items-center justify-center gap-5">
+<div class="relative flex flex-col w-full h-screen items-center justify-center gap-10 md:gap-25">
 	<div class="flex items-center gap-6 md:gap-20">
 		<img src={avatar} alt="" class="md:w-60 md:h-60 w-30 h-30 z-10 rounded-full" />
 
@@ -81,6 +115,42 @@
 		</div>
 	</div>
 
+	<div class="md:p-0 p-2 w-full md:w-fit">
+		<div
+			class="flex flex-col w-full p-5 gap-3 bg-card/50 backdrop-blur-sm outline-1 outline-card-outline rounded-2xl"
+		>
+			<div class="flex w-full justify-between font-mono">
+				<span class="font-bold md:text-md text-sm">@louiszn's contributions</span>
+				<span class="font-bold md:text-md text-sm"
+					>{data.contributionCalendar.totalContributions} total</span
+				>
+			</div>
+
+			<div class="flex gap-1">
+				<div class="flex flex-col font-mono text-xs md:text-sm gap-1">
+					{#each weekdays as day, i (i)}
+						<div class="flex w-3 h-3 md:w-4 md:h-4 items-center">{i % 2 !== 0 ? day : ""}</div>
+					{/each}
+				</div>
+
+				<div
+					class="grid grid-rows-7 grid-flow-col gap-1 w-full overflow-x-auto md:overflow-hidden"
+					bind:this={contribGrid}
+				>
+					{#each data.contributionCalendar.weeks as week}
+						{#each week.contributionDays as day}
+							<div
+								title={`${day.date}: ${day.contributionCount} contributions`}
+								class="w-3 md:w-4 h-3 md:h-4 rounded-xs md:rounded-sm cursor-pointer"
+								style="background-color: {getColor(day.contributionCount)}"
+							></div>
+						{/each}
+					{/each}
+				</div>
+			</div>
+		</div>
+	</div>
+
 	{#if showArrow}
 		<button
 			class="absolute bottom-25 md:bottom-5 p-2 rounded-full outline outline-muted text-muted animate-bounce"
@@ -93,14 +163,4 @@
 	{/if}
 </div>
 
-<div id="about-me" class="flex w-full h-screen items-center justify-center">
-	<span class="text-5xl font-bold">About me</span>
-</div>
-
-<div id="about-me" class="flex w-full h-screen items-center justify-center"></div>
-
-<div id="about-me" class="flex w-full h-screen items-center justify-center"></div>
-
-<div id="about-me" class="flex w-full h-screen items-center justify-center"></div>
-
-<div id="about-me" class="flex w-full h-screen items-center justify-center"></div>
+<div class="w-full h-screen"></div>

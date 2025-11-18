@@ -110,5 +110,5 @@
 
 <canvas
 	bind:this={canvas}
-	class="fixed left-0 top-0 -z-1 w-full h-screen min-h-screen pointer-events-none"
+	class="fixed left-0 top-0 z-0 w-full h-screen min-h-screen pointer-events-none"
 ></canvas>
