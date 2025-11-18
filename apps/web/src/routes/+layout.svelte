@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { onNavigate } from "$app/navigation";
-	
+
 	import Navbar from "$lib/components/Navbar.svelte";
 	
 	import "../app.css";
 	import favicon from "$lib/assets/favicon.svg";
 	import Background from "$lib/components/Background.svelte";
+	import Footer from "$lib/components/Footer.svelte";
 
 	let { children } = $props();
 
@@ -35,3 +36,5 @@
 <Navbar />
 
 {@render children()}
+
+<Footer />
