@@ -45,12 +45,19 @@
 
 	function scrollToContent() {
 		const aboutMe = document.getElementById("about-me");
+		const navbar = document.getElementById("navbar");
 
 		if (!aboutMe) {
 			return;
 		}
 
-		aboutMe.scrollIntoView({ behavior: "smooth" });
+		const navbarHeight = navbar ? navbar.offsetHeight + 20 : 0;
+		const elementTop = aboutMe.getBoundingClientRect().top + window.scrollY;
+
+		window.scrollTo({
+			top: elementTop - navbarHeight,
+			behavior: "smooth",
+		});
 	}
 
 	const colors = ["#2a2a2a", "#264653", "#2a9d8f", "#8feaff", "#A6D1E6"];
@@ -163,6 +170,6 @@
 	{/if}
 </div>
 
-<div class="flex w-full h-screen items-center" id="about-me">
-	<span>About Me</span>
+<div class="flex w-full h-screen justify-center mt-5" id="about-me">
+	<span class="text-xl md:text-4xl font-bold">About Me</span>
 </div>
