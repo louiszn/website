@@ -33,8 +33,7 @@
 <Navbar />
 
 <Background />
-<div style="">
-	{@render children()}
-</div>
+
+{@render children()}
 
 <Footer />
