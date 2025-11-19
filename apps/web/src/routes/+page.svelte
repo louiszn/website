@@ -164,18 +164,20 @@
 				</div>
 
 				<div class="flex gap-4">
-					<div class="text-center">
-						<span class="font-bold lg:text-lg">{repositories.length}</span>
+					<a href="https://github.com/louiszn?tab=repositories" class="text-center">
+						<span class="font-bold text-sm lg:text-lg">{repositories.length}</span>
 						<span class="text-xs">Repos</span>
-					</div>
+					</a>
+
 					<div class="text-center">
-						<span class="font-bold lg:text-lg">{totalStars}</span>
+						<span class="font-bold text-sm lg:text-lg">{totalStars}</span>
 						<span class="text-xs">Stars</span>
 					</div>
-					<div class="text-center">
-						<span class="font-bold lg:text-lg">{followers.total}</span>
+
+					<a href="https://github.com/louiszn?tab=followers" class="text-center">
+						<span class="font-bold text-sm lg:text-lg">{followers.total}</span>
 						<span class="text-xs">Followers</span>
-					</div>
+					</a>
 				</div>
 			</div>
 		</div>
