@@ -22,13 +22,13 @@ export async function getUserContributionCalendar(username: string): Promise<Con
 
 		const query = print(GetContribtutions);
 
-		const from = new Date(now);
-		from.setFullYear(from.getFullYear() - 1);
+		const to = new Date(now);
+		const from = new Date(to.getTime() - 53 * 7 * 24 * 60 * 60 * 1000); // Get exactly 53 weeks like how Github did
 
 		const result = await octokit.graphql<UserContributions>(query, {
 			username,
 			from,
-			to: new Date(now),
+			to,
 		});
 
 		cachedCalendar = result.user.contributionsCollection.contributionCalendar;

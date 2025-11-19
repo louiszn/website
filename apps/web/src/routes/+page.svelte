@@ -129,7 +129,7 @@
 			<div class="flex w-full justify-between font-mono">
 				<span class="font-bold lg:text-lg text-sm">@louiszn's contributions</span>
 				<span class="font-bold lg:text-lg text-sm"
-					>{data.contributionCalendar.totalContributions} total</span
+					>{data.contributionCalendar.totalContributions} total {data.contributionCalendar.weeks.slice(7).length}</span
 				>
 			</div>
 
@@ -141,7 +141,7 @@
 				</div>
 
 				<div
-					class="grid grid-rows-7 grid-flow-col gap-1 w-full overflow-x-auto lg:overflow-hidden"
+					class="grid grid-flow-col grid-rows-7 gap-1 w-full overflow-x-auto lg:overflow-hidden"
 					bind:this={contribGrid}
 				>
 					{#each data.contributionCalendar.weeks as week}
