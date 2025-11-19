@@ -22,7 +22,8 @@ export async function getUserContributionCalendar(username: string): Promise<Con
 
 		const query = print(GetContribtutions);
 
-		const from = new Date(now - 366 * 24 * 60 * 60 * 1_000); // 366 days ago
+		const from = new Date(now);
+		from.setFullYear(from.getFullYear() - 1);
 
 		const result = await octokit.graphql<UserContributions>(query, {
 			username,
