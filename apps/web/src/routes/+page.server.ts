@@ -1,6 +1,12 @@
-import { getUserContributionCalendar } from "$lib/utils/github";
+import { getUser, getUserRepositories } from "$lib/utils/github";
+
+const USERNAME = "louiszn";
 
 export async function load() {
-	const contributionCalendar = await getUserContributionCalendar("louiszn");
-	return { contributionCalendar };
+	const [ghUser, repositories] = await Promise.all([
+		getUser(USERNAME),
+		getUserRepositories(USERNAME),
+	]);
+
+	return { ghUser, repositories };
 }

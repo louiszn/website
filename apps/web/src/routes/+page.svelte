@@ -6,15 +6,22 @@
 
 	import avatar from "$lib/assets/avatar.jpeg";
 
-	import type { ContributionCalendar } from "$types/queries/userContributons";
+	import type { User } from "$types/queries/user";
+	import { ContributionLevel } from "$lib/enums/github";
+	import type { Repository } from "$types/queries/repository";
 
 	interface ExtendedLayoutProps {
 		data: {
-			contributionCalendar: ContributionCalendar;
+			ghUser: User | null;
+			repositories: Repository[];
 		};
 	}
 
-	let { data }: LayoutProps & ExtendedLayoutProps = $props();
+	const { data }: LayoutProps & ExtendedLayoutProps = $props();
+
+	const { repositories, ghUser } = data;
+
+	const totalStars = repositories.reduce((prev, x) => prev + x.stargazerCount, 0);
 
 	const links = [
 		{
@@ -35,7 +42,7 @@
 		},
 	];
 
-	let contribGrid: HTMLDivElement;
+	let contribGrid: HTMLDivElement = $state(undefined) as never;
 
 	let showArrow = $state(false);
 
@@ -62,20 +69,19 @@
 
 	const colors = ["#2a2a2a", "#264653", "#2a9d8f", "#8feaff", "#A6D1E6"];
 
-	function getColor(count: number) {
-		if (count === 0) {
-			return colors[0];
+	function getColor(level: ContributionLevel) {
+		switch (level) {
+			case ContributionLevel.None:
+				return colors[0];
+			case ContributionLevel.FirstQuartile:
+				return colors[1];
+			case ContributionLevel.SecondQuartile:
+				return colors[2];
+			case ContributionLevel.ThirdQuartile:
+				return colors[3];
+			case ContributionLevel.FourthQuartile:
+				return colors[4];
 		}
-		if (count <= 2) {
-			return colors[1];
-		}
-		if (count <= 4) {
-			return colors[2];
-		}
-		if (count <= 6) {
-			return colors[3];
-		}
-		return colors[4];
 	}
 
 	onMount(() => {
@@ -122,41 +128,58 @@
 		</div>
 	</div>
 
-	<div class="lg:p-0 p-5 w-full lg:w-fit">
-		<div
-			class="flex flex-col w-full p-4 gap-3 bg-card/40 backdrop-blur-sm outline-1 outline-card-outline rounded-2xl"
-		>
-			<div class="flex w-full justify-between font-mono">
-				<span class="font-bold lg:text-lg text-sm">@louiszn's contributions</span>
-				<span class="font-bold lg:text-lg text-sm"
-					>{data.contributionCalendar.totalContributions} total {data.contributionCalendar.weeks.slice(7).length}</span
-				>
-			</div>
+	{#if ghUser}
+		{@const { contributions, followers } = ghUser}
 
-			<div class="flex gap-1">
-				<div class="flex flex-col font-mono text-xs lg:text-sm gap-1">
-					{#each weekdays as day, i (i)}
-						<div class="flex w-3 h-3 lg:w-4 lg:h-4 items-center">{i % 2 !== 0 ? day : ""}</div>
-					{/each}
+		<div class="lg:p-0 p-5 w-full lg:w-fit font-mono">
+			<div
+				class="flex flex-col w-full p-4 gap-3 bg-card/40 backdrop-blur-sm outline-1 outline-card-outline rounded-2xl"
+			>
+				<div class="flex w-full justify-between">
+					<span class="font-bold lg:text-lg text-sm">@louiszn's contributions</span>
+					<span class="font-bold lg:text-lg text-sm">{contributions.calendar.total} total</span>
 				</div>
 
-				<div
-					class="grid grid-flow-col grid-rows-7 gap-1 w-full overflow-x-auto lg:overflow-hidden"
-					bind:this={contribGrid}
-				>
-					{#each data.contributionCalendar.weeks as week}
-						{#each week.contributionDays as day}
-							<div
-								title={`${day.date}: ${day.contributionCount} contributions`}
-								class="w-3 lg:w-4 h-3 lg:h-4 rounded-xs lg:rounded-sm cursor-pointer"
-								style="background-color: {getColor(day.contributionCount)}"
-							></div>
+				<div class="flex gap-1">
+					<div class="flex flex-col font-mono text-xs lg:text-sm gap-1">
+						{#each weekdays as day, i (i)}
+							<div class="flex w-3 h-3 lg:w-4 lg:h-4 items-center">{i % 2 !== 0 ? day : ""}</div>
 						{/each}
-					{/each}
+					</div>
+
+					<div
+						class="grid grid-flow-col grid-rows-7 gap-1 w-full overflow-x-auto lg:overflow-hidden"
+						bind:this={contribGrid}
+					>
+						{#each contributions.calendar.weeks as week}
+							{#each week.days as day}
+								<div
+									title={`${day.date}: ${day.count} contributions`}
+									class="w-3 lg:w-4 h-3 lg:h-4 rounded-xs lg:rounded-sm cursor-pointer"
+									style="background-color: {getColor(day.level)}"
+								></div>
+							{/each}
+						{/each}
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<div class="text-center">
+						<span class="font-bold lg:text-lg">{repositories.length}</span>
+						<span class="text-xs">Repos</span>
+					</div>
+					<div class="text-center">
+						<span class="font-bold lg:text-lg">{totalStars}</span>
+						<span class="text-xs">Stars</span>
+					</div>
+					<div class="text-center">
+						<span class="font-bold lg:text-lg">{followers.total}</span>
+						<span class="text-xs">Followers</span>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	{/if}
 
 	{#if showArrow}
 		<button

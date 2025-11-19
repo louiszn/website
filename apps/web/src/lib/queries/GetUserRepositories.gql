@@ -1,0 +1,17 @@
+query GetUserRepos($username: String!, $after: String) {
+	user(login: $username) {
+		repositories(first: 50, after: $after, ownerAffiliations: OWNER) {
+			total: totalCount
+			page: pageInfo {
+				hasNextPage
+				endCursor
+			}
+			edges {
+				node {
+					name
+					stargazerCount
+				}
+			}
+		}
+	}
+}

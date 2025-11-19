@@ -1,0 +1,24 @@
+fragment ContributionsFields on ContributionsCollection {
+	calendar: contributionCalendar {
+		total: totalContributions
+		weeks {
+			days: contributionDays {
+				date
+				count: contributionCount
+				level: contributionLevel
+			}
+		}
+	}
+}
+
+query ($username: String!, $from: DateTime!, $to: DateTime!) {
+	user(login: $username) {
+		contributions: contributionsCollection(from: $from, to: $to) {
+			...ContributionsFields
+		}
+
+		followers {
+			total: totalCount
+		}
+	}
+}

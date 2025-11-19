@@ -4,3 +4,5 @@ declare module "*.gql" {
 	export const _queries: Record<string, import("graphql").DocumentNode>;
 	export const _fragments: Record<string, import("graphql").FragmentDefinitionNode>;
 }
+
+type Awaitable<T> = T | PromiseLike<T>;

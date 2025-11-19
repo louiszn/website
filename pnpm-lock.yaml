@@ -44,6 +44,9 @@ importers:
       '@iconify/svelte':
         specifier: ^5.1.0
         version: 5.1.0(svelte@5.43.6)
+      '@isaacs/ttlcache':
+        specifier: ^2.1.2
+        version: 2.1.2
       graphql:
         specifier: ^16.12.0
         version: 16.12.0
@@ -325,6 +328,10 @@ packages:
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
+
+  '@isaacs/ttlcache@2.1.2':
+    resolution: {integrity: sha512-lmG2ZHXBo7tgF1I3vGvBMnUJYhaNE25fmx+tUfotvE3vsARzxiiDXmCBI6Ch8qEHeHmfunr+eVPgIaIc8xIkbg==}
+    engines: {node: '>=12'}
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -1734,6 +1741,8 @@ snapshots:
       svelte: 5.43.6
 
   '@iconify/types@2.0.0': {}
+
+  '@isaacs/ttlcache@2.1.2': {}
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
