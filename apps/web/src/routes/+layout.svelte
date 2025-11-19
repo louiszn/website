@@ -7,6 +7,7 @@
 	import favicon from "$lib/assets/favicon.svg";
 	import Background from "$lib/components/Background.svelte";
 	import Footer from "$lib/components/Footer.svelte";
+	import { onMount } from "svelte";
 
 	let { children } = $props();
 
@@ -18,10 +19,13 @@
 		return new Promise((resolve) => {
 			document.startViewTransition(async () => {
 				resolve();
-				window.scrollTo({ top: 0 });
 				await navigation.complete;
 			});
 		});
+	});
+
+	onMount(() => {
+		window.scrollTo({ top: 0, behavior: "instant" });
 	});
 </script>
 
