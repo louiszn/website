@@ -5,8 +5,8 @@
 
 	import "../app.css";
 	import favicon from "$lib/assets/favicon.svg";
-	// import Background from "$lib/components/Background.svelte";
 	import Footer from "$lib/components/Footer.svelte";
+
 	import { onMount } from "svelte";
 
 	let { children } = $props();
@@ -35,8 +35,6 @@
 </svelte:head>
 
 <Navbar />
-
-<!-- <Background /> -->
 
 {@render children()}
 
