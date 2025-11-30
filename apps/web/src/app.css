@@ -27,7 +27,7 @@
 }
 
 :root {
-	--background: #0d0d0d;
+	--background: #000000;
 	--foreground: #e6f0ff;
 
 	--accent: #8feaff;
@@ -38,7 +38,7 @@
 
 	--muted: #a5a5a5;
 	--muted-foreground: #858585;
-	--card: #1f1f1f;
+	--card: #111111;
 	--card-outline: #414141;
 }
 

@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { onNavigate } from "$app/navigation";
-
 	import Navbar from "$lib/components/Navbar.svelte";
 
 	import "../app.css";
@@ -10,19 +8,6 @@
 	import { onMount } from "svelte";
 
 	let { children } = $props();
-
-	onNavigate((navigation) => {
-		if (!document.startViewTransition) {
-			return;
-		}
-
-		return new Promise((resolve) => {
-			document.startViewTransition(async () => {
-				resolve();
-				await navigation.complete;
-			});
-		});
-	});
 
 	onMount(() => {
 		window.scrollTo({ top: 0, behavior: "instant" });
